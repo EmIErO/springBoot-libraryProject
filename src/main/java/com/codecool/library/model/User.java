@@ -19,7 +19,8 @@ public class User {
     @Column
     private String pesel;
 
-    //private Set<Borrowing> borrowings;
+    @OneToMany (mappedBy="user")
+    private Set<Borrowing> borrowings;
 
     public User() {}
 

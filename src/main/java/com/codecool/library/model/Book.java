@@ -1,9 +1,12 @@
 package com.codecool.library.model;
 
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.util.Set;
 
+@Component
 @Entity
 @Table(name = "BOOK")
 public class Book {
@@ -16,6 +19,7 @@ public class Book {
     @Column
     private String title;
 
+    @OneToMany (mappedBy="book")
     private Set<Specimen> specimens;
 
     public Book() {}

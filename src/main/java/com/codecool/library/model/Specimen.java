@@ -1,6 +1,7 @@
 package com.codecool.library.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "SPECIMEN")
@@ -9,12 +10,17 @@ public class Specimen {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Column
     private String publisment;
     @Column
     private int bookingTime;
 
-    //Set<Borrowing> borrowing;
+    @ManyToOne
+    private Book book;
+
+    @OneToMany(mappedBy = "specimen")
+    Set<Borrowing> borrowing;
 
 
     public Specimen() {
