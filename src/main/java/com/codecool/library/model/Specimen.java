@@ -12,11 +12,12 @@ public class Specimen {
     private Long id;
 
     @Column
-    private String publisment;
+    private String publishment;
     @Column
     private int bookingTime;
 
     @ManyToOne
+    @JoinColumn (name = "book_id")
     private Book book;
 
     @OneToMany(mappedBy = "specimen")
@@ -27,18 +28,19 @@ public class Specimen {
 
     }
 
-    public Specimen(String publisment, int bookingTime) {
-        this.publisment = publisment;
+    public Specimen(String publishment, int bookingTime, Book book) {
+        this.publishment = publishment;
         this.bookingTime = bookingTime;
+        this.book = book;
     }
 
 
-    public String getPublisment() {
-        return publisment;
+    public String getPublishment() {
+        return publishment;
     }
 
-    public void setPublisment(String publisment) {
-        this.publisment = publisment;
+    public void setPublishment(String publishment) {
+        this.publishment = publishment;
     }
 
     public int getBookingTime() {
@@ -47,5 +49,13 @@ public class Specimen {
 
     public void setBookingTime(int bookingTime) {
         this.bookingTime = bookingTime;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 }

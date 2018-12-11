@@ -5,5 +5,5 @@ import com.codecool.library.model.*;
 import java.util.List;
 
 public interface SpecimenRepository extends JpaRepository<Specimen, Long> {
-    List<SpecimenRepository> findAllSpeciment();
+//    List<SpecimenRepository> findAllSpeciment();
 }
