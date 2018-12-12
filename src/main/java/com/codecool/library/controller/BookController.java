@@ -54,7 +54,22 @@ public class BookController {
     }
 
     @PutMapping("/library/book/{id}")
-    public Book updateBook
+    public Book updateBook(@RequestBody Book newBook, @PathVariable Long id) {
+        Book bookToUpdate = bookRepo.findById(id).get();
+
+        bookToUpdate.setAuthor(newBook.getAuthor());
+        bookToUpdate.setTitle(newBook.getTitle());
+//
+//        Set<Specimen> specimenSet = bookToUpdate.getSpecimens();
+//        for (Specimen spec : specimenSet) {
+//
+//
+//        }
+
+
+
+        return bookToUpdate;
+    }
 
 
 //    @GetMapping("/library/book/{id}")
