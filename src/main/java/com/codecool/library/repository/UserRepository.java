@@ -5,7 +5,8 @@ import com.codecool.library.model.User;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-//    List<UserRepository> findAllUser();
+
+    List<User> findAll();
 
 }
 

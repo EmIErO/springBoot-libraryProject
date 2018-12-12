@@ -53,8 +53,8 @@ public class BookController {
         bookRepo.deleteById(id);
     }
 
-    @PutMapping("/library/book/{id}")
-    public Book updateBook
+//    @PutMapping("/library/book/{id}")
+//    public Book updateBook;
 
 
 //    @GetMapping("/library/book/{id}")
