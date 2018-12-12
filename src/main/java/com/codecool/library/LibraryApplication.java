@@ -64,7 +64,7 @@ public class LibraryApplication {
             for (Book ava : availableList) {
                 System.out.println(ava.getTitle());
             }
-            List<User> users = userRepo.findAll();
+            List<User> users = userRepo.findUserById(1L);
 
             for (User u: users) {
                 System.out.println(u.getFirstName() + "   " + u.getLastName());

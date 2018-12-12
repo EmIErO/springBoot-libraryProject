@@ -4,6 +4,7 @@ import com.codecool.library.model.User;
 import com.codecool.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,5 +18,10 @@ public class UserController {
     @GetMapping("/library/users")
     public List<User> findAllUsers() {
         return userService.findAllUsers();
+    }
+
+    @GetMapping("/library/users/{id}")
+    public List<User> findByLastName(@PathVariable Long id) {
+        return userService.findById(id);
     }
 }
