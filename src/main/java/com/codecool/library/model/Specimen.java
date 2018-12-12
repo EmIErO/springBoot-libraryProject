@@ -1,5 +1,7 @@
 package com.codecool.library.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -16,9 +18,11 @@ public class Specimen {
     @Column
     private int bookingTime;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn (name = "book_id")
     private Book book;
+
 
     @OneToMany(mappedBy = "specimen")
     Set<Borrowing> borrowing;
@@ -34,6 +38,9 @@ public class Specimen {
         this.book = book;
     }
 
+    public Long getId() {
+        return id;
+    }
 
     public String getPublishment() {
         return publishment;

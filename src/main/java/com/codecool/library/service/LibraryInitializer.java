@@ -82,17 +82,23 @@ public class LibraryInitializer {
 
         try{
             Borrowing borrow1 = new Borrowing (specimen1Book5, ania, new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-10"));
-            borrow1.setReturnDate(new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-05"));
+//            borrow1.setReturnDate(new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-05"));
 
             Borrowing borrow2 = new Borrowing (specimen1Book2, ania, new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-10"));
-            borrow1.setReturnDate(new SimpleDateFormat("yyyy-MM-dd").parse("2018-09-10"));
+            borrow2.setReturnDate(new SimpleDateFormat("yyyy-MM-dd").parse("2018-09-10"));
 
             Borrowing borrow3 = new Borrowing (specimen1Book2, piotr, new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-09"));
-            borrow1.setReturnDate(new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-09"));
+            borrow3.setReturnDate(new SimpleDateFormat("yyyy-MM-dd").parse("2018-10-09"));
+
+            Borrowing borrow4 = new Borrowing (specimen1Book1, amelia, new SimpleDateFormat("yyyy-MM-dd").parse("2018-11-09"));
+
+            Borrowing borrow5 = new Borrowing (specimen1Book4, amelia, new SimpleDateFormat("yyyy-MM-dd").parse("2018-12-20"));
 
             borrowingRepo.save(borrow1);
             borrowingRepo.save(borrow2);
             borrowingRepo.save(borrow3);
+            borrowingRepo.save(borrow4);
+            borrowingRepo.save(borrow5);
 
         } catch (ParseException exception) {
             System.out.println("Bad date format YYYY-MM-DD");

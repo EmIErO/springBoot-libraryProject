@@ -1,6 +1,7 @@
 package com.codecool.library.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -10,6 +11,8 @@ import java.util.Set;
 @Entity
 @Table(name = "BOOK")
 public class Book {
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,6 +32,9 @@ public class Book {
         this.title = title;
     }
 
+    public Long getId() {
+        return id;
+    }
 
     public String getAuthor() {
         return author;

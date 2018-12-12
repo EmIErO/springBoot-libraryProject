@@ -22,9 +22,11 @@ public class Borrowing {
     @JoinColumn (name = "user_id")
     private User user;
 
+    @Column
     @Temporal(TemporalType.DATE)
     private Date returnDate;
 
+    @Column
     @Temporal(TemporalType.DATE)
     private Date expire;
 
