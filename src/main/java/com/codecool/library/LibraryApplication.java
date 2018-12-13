@@ -4,10 +4,7 @@ import com.codecool.library.model.Book;
 import com.codecool.library.model.Borrowing;
 import com.codecool.library.model.Specimen;
 import com.codecool.library.model.User;
-import com.codecool.library.repository.BookRepository;
-import com.codecool.library.repository.BorrowingRepository;
-import com.codecool.library.repository.SpecimenRepository;
-import com.codecool.library.repository.UserRepository;
+import com.codecool.library.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,6 +26,7 @@ public class LibraryApplication {
 
     @Bean
     public CommandLineRunner demo(UserRepository userRepo,
+                                  ArchivedUserRepository archUserRepo,
                                   BookRepository bookRepo,
                                   SpecimenRepository specimenRepo,
                                   BorrowingRepository borrowingRepo ) {
@@ -67,7 +65,7 @@ public class LibraryApplication {
             User u = userRepo.findUserById(1L);
             System.out.println(u.getFirstName() + "   " + u.getLastName());
 
-            List<User> users = userRepo.findUserByDeleted(0);
+            List<User> users = archUserRepo.findAllArchivedUsers();
 
             for (User us: users) {
                 System.out.println(us.getLastName());

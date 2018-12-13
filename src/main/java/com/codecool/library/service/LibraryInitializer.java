@@ -28,12 +28,16 @@ public class LibraryInitializer {
         User piotr = new User ("Piotr", "Nowak", "piotr@nowak.pl", "89071004532");
         User tymon = new User ("Tymon", "Lewandowski", "tymonLewandowski", "20271106883");
         User wojtek = new User ("Wojciech", "Zawada", "wojtek@zawada.pl", "10250583435");
+        User woj = new User ("Woj", "Tylman", "woj@t.pl", "67250583435");
+        woj.setDeleted(1);
+
 
         userRepo.save(ania);
         userRepo.save(amelia);
         userRepo.save(piotr);
         userRepo.save(tymon);
         userRepo.save(wojtek);
+        userRepo.save(woj);
 
         Book book1 = new Book ("Stephen R. Covey", "The Seven Habits of Highly Effective People");
         Book book2 = new Book ("Leo Babauta", "The Simple Guide To Minimalist Life");
