@@ -27,6 +27,12 @@ public class BookController {
         return bookRepo.findAllByOrderByTitle();
     }
 
+    @GetMapping("/library/book/rental")
+    public List<Book> getAvailableBooks() {
+
+        return bookRepo.findAllAvailableBooks();
+    }
+
     @GetMapping("/library/book/{id}")
     public Book getAllBook(@PathVariable Long id) {
         return bookRepo.findById(id).get();
@@ -57,7 +63,7 @@ public class BookController {
         }
         bookRepo.deleteById(id);
     }
-    
+
     @PutMapping("/library/book/{id}")
     public Book updateBook(@RequestBody Book newBook, @PathVariable Long id) {
         Book bookToUpdate = bookRepo.findById(id).get();

@@ -17,7 +17,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             "OR ( b.id IS NOT NULL " +
             "AND b.return_date IS NOT NULL ) GROUP BY s.book_id",
     nativeQuery = true)
-    List<Book> findMyQuery();
+    List<Book> findAllAvailableBooks();
 
 
 
