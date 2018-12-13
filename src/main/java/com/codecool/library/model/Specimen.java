@@ -1,11 +1,13 @@
 package com.codecool.library.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Where(clause = "DELETED = 0")
 @Table(name = "SPECIMEN")
 public class Specimen {
 
@@ -23,6 +25,9 @@ public class Specimen {
     @JoinColumn (name = "book_id")
     private Book book;
 
+    @Column(name="DELETED")
+    private int deleted;
+
 
 //    @JsonIgnore
     @OneToMany(mappedBy = "specimen")
@@ -37,6 +42,7 @@ public class Specimen {
         this.publishment = publishment;
         this.bookingTime = bookingTime;
         this.book = book;
+        this.deleted = 0;
     }
 
     public Set<Borrowing> getBorrowing() {
@@ -73,5 +79,13 @@ public class Specimen {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted() {
+        this.deleted = 1;
     }
 }

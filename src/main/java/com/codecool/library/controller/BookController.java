@@ -4,6 +4,8 @@ import com.codecool.library.model.Book;
 import com.codecool.library.model.Specimen;
 import com.codecool.library.repository.BookRepository;
 import com.codecool.library.repository.SpecimenRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.Set;
 
 @RestController
 public class BookController {
+    static final Logger LOGGER = LogManager.getLogger("BookController:");
 
     private BookRepository bookRepo;
     private SpecimenRepository specimenRepo;
@@ -20,21 +23,21 @@ public class BookController {
         this.specimenRepo = specimenRepo;
     }
 
-
     @GetMapping("/library/book")
     public List<Book> getAllBook() {
-
+        LOGGER.info("get books" );
         return bookRepo.findAllByOrderByTitle();
     }
 
     @GetMapping("/library/book/rental")
     public List<Book> getAvailableBooks() {
-
         return bookRepo.findAllAvailableBooks();
     }
 
     @GetMapping("/library/book/{id}")
     public Book getAllBook(@PathVariable Long id) {
+        LOGGER.info("get book" + ": " + String.valueOf(id)  );
+
         return bookRepo.findById(id).get();
     }
 
@@ -47,8 +50,9 @@ public class BookController {
         for (Specimen spec : specimenSet) {
             spec.setBook(newBook);
             specimenRepo.save(spec);
+            LOGGER.info("new specimen was added");
         }
-
+        LOGGER.info("new book was added");
         return newBook;
     }
 
@@ -60,8 +64,10 @@ public class BookController {
         for (Specimen spec : specimenSet) {
             Long idToDelete = spec.getId();
             specimenRepo.deleteById(idToDelete);
+            LOGGER.info("specimen was deleted");
         }
         bookRepo.deleteById(id);
+        LOGGER.info("book was deleted");
     }
 
     @PutMapping("/library/book/{id}")
@@ -70,6 +76,7 @@ public class BookController {
 
         bookToUpdate.setAuthor(newBook.getAuthor());
         bookToUpdate.setTitle(newBook.getTitle());
+        LOGGER.info("book was updated");
 
 //        Set<Specimen> newSpecimenSet = newBook.getSpecimens();
 //
