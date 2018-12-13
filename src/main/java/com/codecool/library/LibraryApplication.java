@@ -3,6 +3,7 @@ package com.codecool.library;
 import com.codecool.library.model.Book;
 import com.codecool.library.model.Borrowing;
 import com.codecool.library.model.Specimen;
+import com.codecool.library.model.User;
 import com.codecool.library.repository.BookRepository;
 import com.codecool.library.repository.BorrowingRepository;
 import com.codecool.library.repository.SpecimenRepository;
@@ -63,6 +64,11 @@ public class LibraryApplication {
             List<Book> availableList = bookRepo.findMyQuery();
             for (Book ava : availableList) {
                 System.out.println(ava.getTitle());
+            }
+            List<User> users = userRepo.findAll();
+
+            for (User u: users) {
+                System.out.println(u.getFirstName() + "   " + u.getLastName());
             }
 
 

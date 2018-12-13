@@ -57,7 +57,7 @@ public class BookController {
         }
         bookRepo.deleteById(id);
     }
-
+    
     @PutMapping("/library/book/{id}")
     public Book updateBook(@RequestBody Book newBook, @PathVariable Long id) {
         Book bookToUpdate = bookRepo.findById(id).get();
@@ -77,6 +77,5 @@ public class BookController {
 
         return bookRepo.save(bookToUpdate);
     }
-
 
 }
