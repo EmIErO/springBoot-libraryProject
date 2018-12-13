@@ -1,9 +1,12 @@
 package com.codecool.library.model;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Where(clause = "DELETED = 0")
 @Table(name = "USER")
 public class User {
 
@@ -18,6 +21,8 @@ public class User {
     private String email;
     @Column
     private String pesel;
+    @Column
+    private int deleted;
 
     @OneToMany (mappedBy="user")
     private Set<Borrowing> borrowings;
@@ -29,6 +34,7 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.pesel = pesel;
+        this.deleted = 0;
     }
 
     public String getFirstName() {
@@ -61,5 +67,13 @@ public class User {
 
     public void setPesel(String pesel) {
         this.pesel = pesel;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 }

@@ -33,4 +33,9 @@ public class UserController {
     public User findById(@PathVariable Long id) {
         return userService.findById(id);
     }
+
+    @DeleteMapping("/library/users/{id}")
+    public void removeUserById(@PathVariable Long id) {
+        userService.removeUserById(id);
+    }
 }

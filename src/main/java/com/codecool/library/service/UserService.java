@@ -50,4 +50,11 @@ public class UserService {
         return true;
     }
 
+    public void removeUserById(Long id) {
+        User user = findById(id);
+        if (user != null) {
+            user.setDeleted(1);
+            userRepo.save(user);
+        }
+    }
 }

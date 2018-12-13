@@ -67,7 +67,11 @@ public class LibraryApplication {
             User u = userRepo.findUserById(1L);
             System.out.println(u.getFirstName() + "   " + u.getLastName());
 
+            List<User> users = userRepo.findUserByDeleted(0);
 
+            for (User us: users) {
+                System.out.println(us.getLastName());
+            }
 
 
 
