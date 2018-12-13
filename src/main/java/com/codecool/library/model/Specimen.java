@@ -24,6 +24,7 @@ public class Specimen {
     private Book book;
 
 
+//    @JsonIgnore
     @OneToMany(mappedBy = "specimen")
     Set<Borrowing> borrowing;
 
@@ -36,6 +37,14 @@ public class Specimen {
         this.publishment = publishment;
         this.bookingTime = bookingTime;
         this.book = book;
+    }
+
+    public Set<Borrowing> getBorrowing() {
+        return borrowing;
+    }
+
+    public void setBorrowing(Set<Borrowing> borrowing) {
+        this.borrowing = borrowing;
     }
 
     public Long getId() {

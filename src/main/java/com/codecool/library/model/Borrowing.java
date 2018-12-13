@@ -1,5 +1,6 @@
 package com.codecool.library.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -14,10 +15,12 @@ public class Borrowing {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn (name = "specimen_id")
     private Specimen specimen;
 
+//    @JsonIgnore
     @ManyToOne
     @JoinColumn (name = "user_id")
     private User user;

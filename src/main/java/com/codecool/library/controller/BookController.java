@@ -6,7 +6,6 @@ import com.codecool.library.repository.BookRepository;
 import com.codecool.library.repository.SpecimenRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -21,10 +20,16 @@ public class BookController {
         this.specimenRepo = specimenRepo;
     }
 
+
     @GetMapping("/library/book")
     public List<Book> getAllBook() {
 
         return bookRepo.findAllByOrderByTitle();
+    }
+
+    @GetMapping("/library/book/{id}")
+    public Book getAllBook(@PathVariable Long id) {
+        return bookRepo.findById(id).get();
     }
 
     @PostMapping("/library/book")
@@ -59,25 +64,19 @@ public class BookController {
 
         bookToUpdate.setAuthor(newBook.getAuthor());
         bookToUpdate.setTitle(newBook.getTitle());
+
+//        Set<Specimen> newSpecimenSet = newBook.getSpecimens();
 //
-//        Set<Specimen> specimenSet = bookToUpdate.getSpecimens();
-//        for (Specimen spec : specimenSet) {
-//
-//
+//        for(Specimen spec : newSpecimenSet) {
+//            Long specimenId = spec.getId();
+//            Specimen specToUpdate = specimenRepo.findById(31L).get();
+//            specToUpdate.setBookingTime(spec.getBookingTime());
+//            specToUpdate.setPublishment(spec.getPublishment());
+//            specimenRepo.save(specToUpdate);
 //        }
 
-
-
-        return bookToUpdate;
+        return bookRepo.save(bookToUpdate);
     }
-
-
-//    @GetMapping("/library/book/{id}")
-//    public Book getBookById(@PathVariable("id") Long id) {
-//        return bookRepo.findById(id).get();
-//    }
-
-
 
 
 }

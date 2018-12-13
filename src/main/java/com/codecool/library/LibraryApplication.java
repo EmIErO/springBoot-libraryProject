@@ -16,6 +16,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @SpringBootApplication
 public class LibraryApplication {
@@ -52,8 +53,8 @@ public class LibraryApplication {
 
             System.out.println("----------------------------------");
 
-            List<Specimen> specimenList = specimenRepo.findAllByBook_Title("How to be a Hero to Your Kids");
-            for (Specimen spec : specimenList) {
+            Set<Specimen> specimenSet = specimenRepo.findAllByBook_Title("How to be a Hero to Your Kids");
+            for (Specimen spec : specimenSet) {
                 System.out.println(spec.getBook().getTitle());
             }
 

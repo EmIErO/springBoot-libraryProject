@@ -1,7 +1,5 @@
 package com.codecool.library.model;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
