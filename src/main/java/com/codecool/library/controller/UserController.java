@@ -3,9 +3,7 @@ package com.codecool.library.controller;
 import com.codecool.library.model.User;
 import com.codecool.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,8 +18,19 @@ public class UserController {
         return userService.findAllUsers();
     }
 
+    @PostMapping("/library/users")
+    public void addUser(@RequestBody User u) {
+        User newUser = new User(u.getFirstName(), u.getLastName(), u.getEmail(), u.getPesel());
+        userService.addUser(newUser);
+    }
+
+    @PutMapping("/library/users/{id}")
+    public void changeUsersData(@PathVariable Long id, @RequestBody User user) {
+        userService.changeUsersData(id, user);
+    }
+
     @GetMapping("/library/users/{id}")
-    public List<User> findByLastName(@PathVariable Long id) {
+    public User findById(@PathVariable Long id) {
         return userService.findById(id);
     }
 }

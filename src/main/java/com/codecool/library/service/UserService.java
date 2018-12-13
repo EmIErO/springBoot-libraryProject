@@ -17,7 +17,37 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public List<User> findById(Long id) {
+    public User findById(Long id) {
         return userRepo.findUserById(id);
     }
+
+    public void addUser(User newUser) {
+        userRepo.save(newUser);
+    }
+
+    public void changeUsersData(Long id, User user) {
+        User userToUpdate = userRepo.findUserById(id);
+        if (stringDataIsValid(user.getFirstName())) {
+            userToUpdate.setFirstName(user.getFirstName());
+        }
+        if (stringDataIsValid(user.getLastName())) {
+            userToUpdate.setLastName(user.getLastName());
+        }
+        if (stringDataIsValid(user.getEmail())) {
+            userToUpdate.setEmail(user.getEmail());
+        }
+        if (stringDataIsValid(user.getPesel())) {
+            userToUpdate.setPesel(user.getPesel());
+        }
+        userRepo.save(userToUpdate);
+    }
+
+    private boolean stringDataIsValid(String data) {
+        data = data.trim();
+        if (data.equals(null) || data.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
 }

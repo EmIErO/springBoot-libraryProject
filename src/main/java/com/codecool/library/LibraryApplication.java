@@ -64,11 +64,10 @@ public class LibraryApplication {
             for (Book ava : availableList) {
                 System.out.println(ava.getTitle());
             }
-            List<User> users = userRepo.findUserById(1L);
+            User u = userRepo.findUserById(1L);
+            System.out.println(u.getFirstName() + "   " + u.getLastName());
 
-            for (User u: users) {
-                System.out.println(u.getFirstName() + "   " + u.getLastName());
-            }
+
 
 
 
