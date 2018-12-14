@@ -1,17 +1,12 @@
 package com.codecool.library.model;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import java.util.Set;
 
-@Component
+//@Component
 @Entity
 @Table(name = "BOOK")
 public class Book {
-
 
 
     @Id
@@ -59,4 +54,6 @@ public class Book {
     public void setSpecimens(Set<Specimen> specimens) {
         this.specimens = specimens;
     }
+
+
 }

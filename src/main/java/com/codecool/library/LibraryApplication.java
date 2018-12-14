@@ -5,6 +5,9 @@ import com.codecool.library.model.Borrowing;
 import com.codecool.library.model.Specimen;
 import com.codecool.library.model.User;
 import com.codecool.library.repository.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,14 +17,16 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @SpringBootApplication
 public class LibraryApplication {
 
+    private static final Logger logger = LogManager.getFormatterLogger(LibraryApplication.class);
     public static void main(String[] args) {
 
         SpringApplication.run(LibraryApplication.class, args);
-        System.out.println("************************************");
+        logger.info("it is me");
     }
 
     @Bean
@@ -46,19 +51,19 @@ public class LibraryApplication {
 
             List<Borrowing> borrowingList = borrowingRepo.getBorrowingByReturnDateIsNullAndExpireBefore(today);
             for (Borrowing borrow : borrowingList) {
-                System.out.println(borrow.getUser().getEmail() + " |  " + borrow.getSpecimen().getBook().getTitle());
+                logger.info(borrow.getUser().getEmail() + " |  " + borrow.getSpecimen().getBook().getTitle());
             }
 
             System.out.println("----------------------------------");
 
-            List<Specimen> specimenList = specimenRepo.findAllByBook_Title("How to be a Hero to Your Kids");
-            for (Specimen spec : specimenList) {
-                System.out.println(spec.getBook().getTitle());
+            Set<Specimen> specimenSet = specimenRepo.findAllByBook_Title("How to be a Hero to Your Kids");
+            for (Specimen spec : specimenSet) {
+                logger.info(spec.getBook().getTitle());
             }
 
             System.out.println("----------------------------------");
 
-            List<Book> availableList = bookRepo.findMyQuery();
+            List<Book> availableList = bookRepo.findAllByOrderByTitle();
             for (Book ava : availableList) {
                 System.out.println(ava.getTitle());
             }

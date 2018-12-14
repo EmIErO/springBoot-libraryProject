@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
+
     List<Book> findAllByOrderByTitle();
 
     @Query (value = "SELECT book.id, book.title, book.author " +
@@ -17,7 +18,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             "OR ( b.id IS NOT NULL " +
             "AND b.return_date IS NOT NULL ) GROUP BY s.book_id",
     nativeQuery = true)
-    List<Book> findMyQuery();
+    List<Book> findAllAvailableBooks();
+
 
 
 
