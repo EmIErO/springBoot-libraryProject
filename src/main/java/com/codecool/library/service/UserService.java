@@ -2,6 +2,8 @@ package com.codecool.library.service;
 
 import com.codecool.library.model.User;
 import com.codecool.library.repository.UserRepository;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepo;
+
 
     public List<User> findAllUsers() {
         return userRepo.findAll();
