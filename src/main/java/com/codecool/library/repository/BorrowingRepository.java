@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface BorrowingRepository extends JpaRepository<Borrowing, Long> {
 
-//    List<Borrowing> getBorrowingByReturnDateEqualsAndExpireBefore(Date returnDate, Date expire);
     List<Borrowing> getBorrowingByReturnDateIsNullAndExpireBefore(Date date);
 
-
-//    List<Borrowing> findBorrowingBySpecimenAndReturnDateIsNull(Specimen specimen);
+    List<Borrowing> findAll();
+    List<Borrowing> findAllBySpecimenId(Long id);
+    List<Borrowing> findAllByUserId(Long id);
 
 
 

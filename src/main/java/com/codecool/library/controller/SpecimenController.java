@@ -1,13 +1,12 @@
 package com.codecool.library.controller;
 
-import com.codecool.library.model.Book;
 import com.codecool.library.model.Borrowing;
 import com.codecool.library.model.Specimen;
-import com.codecool.library.repository.BookRepository;
 import com.codecool.library.repository.BorrowingRepository;
 import com.codecool.library.repository.SpecimenRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,18 +17,15 @@ public class SpecimenController {
 
     static final Logger LOGGER = LogManager.getLogger("SpecimenController:");
 
+    @Autowired
     private SpecimenRepository specimenRepo;
+    @Autowired
     private BorrowingRepository borrowingRepo;
 
 
-    public SpecimenController(SpecimenRepository specimenRepo, BorrowingRepository borrowingRepo) {
-        this.specimenRepo = specimenRepo;
-        this.borrowingRepo = borrowingRepo;
-    }
-
     @GetMapping("/library/specimen")
     public List<Specimen> getAllSpecimen () {
-        LOGGER.info("get all specimen" );
+        getLogger("Method: get -> getAllSpecimen");
         return specimenRepo.findAll();
     }
 
@@ -47,6 +43,7 @@ public class SpecimenController {
 
         specimenToUpdate.setBookingTime(newSpecimen.getBookingTime());
         specimenToUpdate.setPublishment(newSpecimen.getPublishment());
+        getLogger("Method: put -> updateSpecimen -> updateBySetters -> set specimen");
     }
 
 
@@ -54,7 +51,7 @@ public class SpecimenController {
     public Specimen addNewSpecimen(@RequestBody Specimen newSpecimen) {
 
         specimenRepo.save(newSpecimen);
-        LOGGER.info("new specimen was added");
+        getLogger("Method: post -> addNewSpecimen -> save specimen");
 
         return newSpecimen;
     }
@@ -71,15 +68,17 @@ public class SpecimenController {
 
 
     private void delete(Specimen specimenToDelete, Long id){
-        //Long id = specimenToDelete.getId();
+
         Set<Borrowing> borrowingToDeleteSet = specimenToDelete.getBorrowing();
 
         for (Borrowing borrow : borrowingToDeleteSet) {
             Long idBorrowingToDelete = borrow.getId();
             borrowingRepo.deleteById(idBorrowingToDelete);
+            getLogger("Method: delete -> deleteSpecimenById -> delete borrowingSecimen");
         }
 
         specimenRepo.deleteById(id);
+        getLogger("Method: delete -> deleteSpecimenById -> delete specimen");
     }
 
     private void archive(Specimen specimenToArchive, Long id) {
@@ -89,11 +88,15 @@ public class SpecimenController {
         for (Borrowing borrow : borrowingToArchiveSet) {
             borrow.setDeleted();
             borrowingRepo.save(borrow);
+            getLogger("Method: delete -> deleteSpecimenById -> archive borrowingSecimen");
         }
 
         specimenToArchive.setDeleted();
         specimenRepo.save(specimenToArchive);
+        getLogger("Method: delete -> deleteSpecimenById -> archive specimen");
     }
 
-
+    private void getLogger(String info) {
+        LOGGER.info(info);
+    }
 }

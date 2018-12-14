@@ -2,7 +2,7 @@ package com.codecool.library.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Where;
-import org.springframework.stereotype.Component;
+
 
 import javax.persistence.*;
 import java.util.Date;

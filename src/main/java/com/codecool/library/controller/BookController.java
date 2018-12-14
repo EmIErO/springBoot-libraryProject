@@ -6,6 +6,7 @@ import com.codecool.library.repository.BookRepository;
 import com.codecool.library.repository.SpecimenRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,13 +16,11 @@ import java.util.Set;
 public class BookController {
     static final Logger LOGGER = LogManager.getLogger("BookController:");
 
+    @Autowired
     private BookRepository bookRepo;
+    @Autowired
     private SpecimenRepository specimenRepo;
 
-    public BookController(BookRepository bookRepo, SpecimenRepository specimenRepo) {
-        this.bookRepo = bookRepo;
-        this.specimenRepo = specimenRepo;
-    }
 
     @GetMapping("/library/book")
     public List<Book> getAllBook() {
@@ -45,31 +44,57 @@ public class BookController {
     public Book addNewBook(@RequestBody Book newBook) {
 
         bookRepo.save(newBook);
+        setSpecimen(newBook);
 
-        Set<Specimen> specimenSet = newBook.getSpecimens();
-        for (Specimen spec : specimenSet) {
-            spec.setBook(newBook);
-            specimenRepo.save(spec);
-            getLogger("Method: post -> addNewSpecimen");
-        }
-        getLogger("Method: post -> addNewBook");
+        getLogger("Method: post -> addNewBook -> add book");
         return newBook;
+    }
+
+    private void setSpecimen(Book newBook) {
+        Set<Specimen> specimenSet = newBook.getSpecimens();
+        for (Specimen specimen : specimenSet) {
+            specimen.setBook(newBook);
+            specimenRepo.save(specimen);
+            getLogger("Method: post -> addNewBook -> set specimen");
+        }
     }
 
 
     @DeleteMapping("/library/book/{id}")
-    public void deleteBook(@PathVariable Long id) {
+    public void deleteBookById(@PathVariable Long id) {
         Book bookToDelete = bookRepo.findById(id).get();
+        delete(bookToDelete, id);
 
+    }
+
+
+    private void delete(Book bookToDelete, Long id) {
         Set<Specimen> specimenSet = bookToDelete.getSpecimens();
+
         for (Specimen spec : specimenSet) {
             Long idToDelete = spec.getId();
             specimenRepo.deleteById(idToDelete);
-            LOGGER.info("specimen was deleted");
+            getLogger("Method: delete -> deleteBookById -> delete bookSpecimens");
         }
+
         bookRepo.deleteById(id);
-        LOGGER.info("book was deleted");
+        getLogger("Method: delete -> deleteBookById -> delete book");
     }
+
+    private void archive(Book bookToArchive, Long id) {
+        Set<Specimen> specimenSet = bookToArchive.getSpecimens();
+
+        for (Specimen specimen : specimenSet) {
+            specimen.setDeleted();
+            specimenRepo.save(specimen);
+            getLogger("Method: delete -> deleteBookById -> archive bookSpecimens");
+        }
+
+        bookToArchive.setDeleted();
+        bookRepo.save(bookToArchive);
+        getLogger("Method: delete -> deleteBookById -> archive book");
+    }
+
 
     @PutMapping("/library/book/{id}")
     public Book updateBook(@RequestBody Book newBook, @PathVariable Long id) {
@@ -77,17 +102,7 @@ public class BookController {
 
         bookToUpdate.setAuthor(newBook.getAuthor());
         bookToUpdate.setTitle(newBook.getTitle());
-        LOGGER.info("book was updated");
-
-//        Set<Specimen> newSpecimenSet = newBook.getSpecimens();
-//
-//        for(Specimen spec : newSpecimenSet) {
-//            Long specimenId = spec.getId();
-//            Specimen specToUpdate = specimenRepo.findById(31L).get();
-//            specToUpdate.setBookingTime(spec.getBookingTime());
-//            specToUpdate.setPublishment(spec.getPublishment());
-//            specimenRepo.save(specToUpdate);
-//        }
+        getLogger("Method: put -> updateBook -> set Author&Title");
 
         return bookRepo.save(bookToUpdate);
     }
@@ -95,5 +110,8 @@ public class BookController {
     private void getLogger(String info) {
         LOGGER.info(info);
     }
+
+
+
 
 }
