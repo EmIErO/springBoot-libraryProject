@@ -4,10 +4,7 @@ import com.codecool.library.model.Book;
 import com.codecool.library.model.Borrowing;
 import com.codecool.library.model.Specimen;
 import com.codecool.library.model.User;
-import com.codecool.library.repository.BookRepository;
-import com.codecool.library.repository.BorrowingRepository;
-import com.codecool.library.repository.SpecimenRepository;
-import com.codecool.library.repository.UserRepository;
+import com.codecool.library.repository.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,25 +29,18 @@ public class LibraryApplication {
         logger.info("it is me");
     }
 
-
-
-
-
-
-
-
-
     @Bean
     public CommandLineRunner demo(UserRepository userRepo,
+                                  ArchivedUserRepository archUserRepo,
                                   BookRepository bookRepo,
                                   SpecimenRepository specimenRepo,
-                                  BorrowingRepository borrowingRepo) {
+                                  BorrowingRepository borrowingRepo ) {
         return(args) -> {
             System.out.println("----------------------------------");
             List<Book> bookList = bookRepo.findAllByOrderByTitle();
 
             for (Book book : bookList) {
-                logger.info("Title: " + book.getTitle() + "   |  Author: " + book.getAuthor());
+                System.out.println("Title: " + book.getTitle() + "   |  Author: " + book.getAuthor());
             }
             System.out.println("----------------------------------");
 
@@ -77,10 +67,13 @@ public class LibraryApplication {
             for (Book ava : availableList) {
                 System.out.println(ava.getTitle());
             }
-            List<User> users = userRepo.findAll();
+            User u = userRepo.findUserById(1L);
+            System.out.println(u.getFirstName() + "   " + u.getLastName());
 
-            for (User u: users) {
-                System.out.println(u.getFirstName() + "   " + u.getLastName());
+            List<User> users = archUserRepo.findAllArchivedUsers();
+
+            for (User us: users) {
+                System.out.println(us.getLastName());
             }
 
 
