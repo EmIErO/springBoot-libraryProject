@@ -25,19 +25,19 @@ public class BookController {
 
     @GetMapping("/library/book")
     public List<Book> getAllBook() {
-        LOGGER.info("get books" );
+        getLogger("Method: get -> getAllBook");
         return bookRepo.findAllByOrderByTitle();
     }
 
     @GetMapping("/library/book/rental")
     public List<Book> getAvailableBooks() {
+        getLogger("Method: get -> getAvailableBook");
         return bookRepo.findAllAvailableBooks();
     }
 
     @GetMapping("/library/book/{id}")
-    public Book getAllBook(@PathVariable Long id) {
-        LOGGER.info("get book" + ": " + String.valueOf(id)  );
-
+    public Book getBookById(@PathVariable Long id) {
+        getLogger("Method: get -> getBookById");
         return bookRepo.findById(id).get();
     }
 
@@ -50,11 +50,12 @@ public class BookController {
         for (Specimen spec : specimenSet) {
             spec.setBook(newBook);
             specimenRepo.save(spec);
-            LOGGER.info("new specimen was added");
+            getLogger("Method: post -> addNewSpecimen");
         }
-        LOGGER.info("new book was added");
+        getLogger("Method: post -> addNewBook");
         return newBook;
     }
+
 
     @DeleteMapping("/library/book/{id}")
     public void deleteBook(@PathVariable Long id) {
@@ -89,6 +90,10 @@ public class BookController {
 //        }
 
         return bookRepo.save(bookToUpdate);
+    }
+
+    private void getLogger(String info) {
+        LOGGER.info(info);
     }
 
 }

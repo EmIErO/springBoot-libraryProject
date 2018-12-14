@@ -38,11 +38,17 @@ public class SpecimenController {
     public Specimen updateSpecimen(@RequestBody Specimen newSpecimen, @PathVariable Long id) {
         Specimen specimenToUpdate = specimenRepo.findById(id).get();
 
-        specimenToUpdate.setBookingTime(newSpecimen.getBookingTime());
-        specimenToUpdate.setPublishment(newSpecimen.getPublishment());
+        updateBySetters(specimenToUpdate, newSpecimen);
 
         return specimenRepo.save(specimenToUpdate);
     }
+
+    private void updateBySetters(Specimen specimenToUpdate, Specimen newSpecimen) {
+
+        specimenToUpdate.setBookingTime(newSpecimen.getBookingTime());
+        specimenToUpdate.setPublishment(newSpecimen.getPublishment());
+    }
+
 
     @PostMapping("/library/specimen")
     public Specimen addNewSpecimen(@RequestBody Specimen newSpecimen) {
@@ -61,20 +67,6 @@ public class SpecimenController {
 //        delete(specimenToDelete, id);
         archive(specimenToDelete, id);
 
-
-//        Set<Borrowing> borrowingToDeleteSet = specimenToDelete.getBorrowing();
-//
-//        for (Borrowing borrow : borrowingToDeleteSet) {
-//            Long idToDelete = borrow.getId();
-////            borrowingRepo.deleteById(idToDelete);
-//            borrow.setDeleted();
-//            borrowingRepo.save(borrow);
-//        }
-//
-////        specimenRepo.deleteById(id);
-//        specimenToDelete.setDeleted();
-//
-//        specimenRepo.save(specimenToDelete);
     }
 
 
