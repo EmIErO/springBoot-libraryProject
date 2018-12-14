@@ -1,0 +1,9 @@
+2018-12-14 13:31:55.513  INFO cooldell --- [  restartedMain] c.c.l.LibraryApplication                 : Starting LibraryApplication on cooldell with PID 25483 (/home/ania/Advance/TW3/spring-boot-project-idzia/target/classes started by ania in /home/ania/Advance/TW3/spring-boot-project-idzia)
+2018-12-14 13:31:55.522  INFO cooldell --- [  restartedMain] c.c.l.LibraryApplication                 : No active profile set, falling back to default profiles: default
+2018-12-14 13:31:59.179  INFO cooldell --- [  restartedMain] c.c.l.LibraryApplication                 : Started LibraryApplication in 4.049 seconds (JVM running for 5.097)
+2018-12-14 13:31:59.415  INFO cooldell --- [  restartedMain] c.c.l.LibraryApplication                 : anna@idzi.pl |  How Full is Your Bucket?
+2018-12-14 13:31:59.415  INFO cooldell --- [  restartedMain] c.c.l.LibraryApplication                 : amelia@kwiatkowska.pl |  The Seven Habits of Highly Effective People
+2018-12-14 13:31:59.423  INFO cooldell --- [  restartedMain] c.c.l.LibraryApplication                 : How to be a Hero to Your Kids
+2018-12-14 13:31:59.423  INFO cooldell --- [  restartedMain] c.c.l.LibraryApplication                 : How to be a Hero to Your Kids
+2018-12-14 13:31:59.423  INFO cooldell --- [  restartedMain] c.c.l.LibraryApplication                 : How to be a Hero to Your Kids
+2018-12-14 13:31:59.470  INFO cooldell --- [  restartedMain] c.c.l.LibraryApplication                 : it is me
