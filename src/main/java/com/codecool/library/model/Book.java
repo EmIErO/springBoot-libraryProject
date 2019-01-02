@@ -3,6 +3,8 @@ package com.codecool.library.model;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 //@Component
@@ -16,6 +18,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column
+    @NotEmpty
     private String author;
     @Column
     private String title;

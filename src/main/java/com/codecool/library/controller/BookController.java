@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
@@ -16,10 +17,14 @@ import java.util.Set;
 public class BookController {
     static final Logger LOGGER = LogManager.getLogger("BookController:");
 
+    private final BookRepository bookRepo;
+    private final SpecimenRepository specimenRepo;
+
     @Autowired
-    private BookRepository bookRepo;
-    @Autowired
-    private SpecimenRepository specimenRepo;
+    public BookController(BookRepository bookRepo, SpecimenRepository specimenRepo) {
+        this.bookRepo = bookRepo;
+        this.specimenRepo = specimenRepo;
+    }
 
 
     @GetMapping("/library/book")
@@ -41,7 +46,7 @@ public class BookController {
     }
 
     @PostMapping("/library/book")
-    public Book addNewBook(@RequestBody Book newBook) {
+    public Book addNewBook(@RequestBody @Valid Book newBook) {
 
         bookRepo.save(newBook);
         setSpecimen(newBook);
